@@ -1,0 +1,53 @@
+pipeline:
+  build:
+    image: node:carbon-alpine
+    commands:
+      - npm install
+      - node_modules/.bin/gulp build
+
+  publish_docker_master:
+    image: plugins/docker
+    registry: drone-registry.neocodenetworks.org
+    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    secrets: [ docker_username, docker_password ]
+    tag: [ latest, master ]
+    when:
+      branch: master
+      event: push
+
+  publish_docker_branch:
+    image: plugins/docker
+    registry: drone-registry.neocodenetworks.org
+    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    secrets: [ docker_username, docker_password ]
+    tag: ${DRONE_BRANCH}
+    when:
+      branch:
+        exclude: master
+      event: push
+
+  publish_docker_tag:
+    image: plugins/docker
+    registry: drone-registry.neocodenetworks.org
+    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    secrets: [ docker_username, docker_password ]
+    tag: ${DRONE_TAG}
+    when:
+      event: tag
+
+  publish_docker_to_prod:
+    image: plugins/docker
+    registry: drone-registry.neocodenetworks.org
+    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    secrets: [ docker_username, docker_password ]
+    tag: prod
+    when:
+      event: deployment
+      environment: production
+
+  notify_neopush:
+    image: drone-registry.neocodenetworks.org/neopush/drone
+    pull: true
+    secrets: [ neopush_api_key ]
+    when:
+      status: [ failure, changed ]
