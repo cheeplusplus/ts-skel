@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node build/app.js",
     "debug": "node --inspect build/app.js",
-    "build": "gulp build"
+    "build": "tsc -p src/"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",

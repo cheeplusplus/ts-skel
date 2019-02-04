@@ -7,8 +7,8 @@ pipeline:
 
   publish_docker_master:
     image: plugins/docker
-    registry: drone-registry.neocodenetworks.org
-    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    registry: docker.cloud.neocodenetworks.org
+    repo: docker.cloud.neocodenetworks.org/PROJECT_NAME
     secrets: [ docker_username, docker_password ]
     tag: [ latest, master ]
     when:
@@ -17,8 +17,8 @@ pipeline:
 
   publish_docker_branch:
     image: plugins/docker
-    registry: drone-registry.neocodenetworks.org
-    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    registry: docker.cloud.neocodenetworks.org
+    repo: docker.cloud.neocodenetworks.org/PROJECT_NAME
     secrets: [ docker_username, docker_password ]
     tag: ${DRONE_BRANCH}
     when:
@@ -28,8 +28,8 @@ pipeline:
 
   publish_docker_tag:
     image: plugins/docker
-    registry: drone-registry.neocodenetworks.org
-    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    registry: docker.cloud.neocodenetworks.org
+    repo: docker.cloud.neocodenetworks.org/PROJECT_NAME
     secrets: [ docker_username, docker_password ]
     tag: ${DRONE_TAG}
     when:
@@ -37,8 +37,8 @@ pipeline:
 
   publish_docker_to_prod:
     image: plugins/docker
-    registry: drone-registry.neocodenetworks.org
-    repo: drone-registry.neocodenetworks.org/PROJECT_NAME
+    registry: docker.cloud.neocodenetworks.org
+    repo: docker.cloud.neocodenetworks.org/PROJECT_NAME
     secrets: [ docker_username, docker_password ]
     tag: prod
     when:
@@ -46,7 +46,7 @@ pipeline:
       environment: production
 
   notify_neopush:
-    image: drone-registry.neocodenetworks.org/neopush/drone
+    image: docker.cloud.neocodenetworks.org/neopush/drone
     pull: true
     secrets: [ neopush_api_key ]
     when:
