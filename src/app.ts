@@ -1,9 +1,11 @@
 import "source-map-support/register";
 
-import * as exphbs from "express-handlebars";
-import {engine} from "./expresswrap";
+import * as express from "express";
+import "express-async-errors";
 
-const app = engine();
+import * as exphbs from "express-handlebars";
+
+const app = express();
 
 
 // Configure layout engine
