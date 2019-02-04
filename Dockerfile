@@ -1,7 +1,6 @@
 FROM node:carbon-alpine
 
 WORKDIR /usr/src/app
-EXPOSE 3000
 CMD ["npm", "run", "start"]
 
 COPY package.json /usr/src/app/
